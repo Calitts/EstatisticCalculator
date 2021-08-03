@@ -1,3 +1,4 @@
+import random
 
 class Calculate:  # The main class, reponsible for calculating and printing the values
     def __init__(self, list=[1, 1, 1, 3, 4, 4, 2, 2, 2], pre_cal=True):
@@ -49,15 +50,16 @@ class Calculate:  # The main class, reponsible for calculating and printing the 
     def transform(self):  # Round the values to sum up to 100%
         perc = self.final["Last"]["Fra"]
         while perc != 100.0:
+            choice = random.choice(self.candidate)
             if perc > 100:
-                self.final[self.candidate[0]]["Fr"] = round(
-                    self.final[self.candidate[0]]["Fr"] - 0.01, self.aprx)
+                self.final[choice]["Fr"] = round(
+                    self.final[choice]["Fr"] - 0.01, self.aprx)
                 perc = round(perc - 0.01, self.aprx)
                 self.update()
 
             if perc < 100:
-                self.final[self.candidate[0]]["Fr"] = round(
-                    self.final[self.candidate[0]]["Fr"] + 0.01, self.aprx)
+                self.final[choice]["Fr"] = round(
+                    self.final[choice]["Fr"] + 0.01, self.aprx)
                 perc = round(perc + 0.01, self.aprx)
                 self.update()
 
