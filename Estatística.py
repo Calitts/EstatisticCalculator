@@ -1,14 +1,14 @@
-import random
 
-
-class calculate:
-    def __init__(self):
-        self.list_list = [1, 1, 1, 4, 4, 4]
+class Calculate:  # The main class, reponsible for calculating and printing the values
+    def __init__(self, list=[1, 1, 1, 3, 4, 4, 2, 2, 2], pre_cal=True):
+        self.list_list = list
         self.aprx = 2
         self.final = {}
         self.candidate = []
+        if pre_cal:  # If the program will calculate altomicaly the values
+            self.run()
 
-    def main(self, transform=True):
+    def run(self, transform=True, show=False):  # Calculates the value and puts in a dict (self.final)
         acu = []
         fra = []
 
@@ -39,8 +39,14 @@ class calculate:
 
         if transform:
             self.transform()
+        
+        if show:
+            self.show()
 
-    def transform(self):
+    def give(self):  # Giev the value of the final in form of a dict
+        return self.final
+
+    def transform(self):  # Round the values to sum up to 100%
         perc = self.final["Last"]["Fra"]
         while perc != 100.0:
             if perc > 100:
@@ -55,22 +61,22 @@ class calculate:
                 perc = round(perc + 0.01, self.aprx)
                 self.update()
 
-    def update(self):
+    def update(self):  # Update the value of the final dict
         fra = []
         for index in self.final.keys():
             fra.append(float(self.final[index]["Fr"]))
-            # print(self.final[index]["Fr"])
-            # print(index)
+            # print(self.final[index]["Fr"]) - Debug
+            # print(index) - Debug
 
         self.final["Last"]["Fra"] = round(sum(fra), self.aprx-1)
-        #print(round(sum(fra), self.aprx-1))
-        # print(self.final["Last"]["Fra"])
+        # print(round(sum(fra), self.aprx-1)) - Debug
+        # print(self.final["Last"]["Fra"]) - Debug
 
-    def print(self):
+    def show(self):  # Print the value of the final dict
         print(self.final)
 
 
-cal = calculate()
-cal.main()
-cal.print()
+cal = Calculate()
+cal.show()
+
 
